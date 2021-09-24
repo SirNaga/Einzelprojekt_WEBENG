@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    document.addEventListener('DOMContentLoaded', loadData())
+
+    function loadData() {
+      const aniTableBody = document.querySelector('#aniTable > tbody');
+      const request = new XMLHttpRequest();
+
+      request.open('GET', 'https://api.jikan.moe/v3/season/2021/summer');
+      request.onload = function () {
+        try {
+          const json = JSON.parse(request.responseText);
+          json['anime'].forEach(element => {
+            const tr = document.createElement("tr");
+
+
+            var img = document.createElement('img');
+            const td0 = document.createElement("td");
+            const td1 = document.createElement("td");
+            const td2 = document.createElement("td");
+            const td3 = document.createElement("td");
+            const td4 = document.createElement("td");
+
+            img.src = element['image_url'];
+            td0.appendChild(img);
+            td1.textContent = element['title'];
+            td2.textContent = element['synopsis'];
+            td3.textContent = element['episodes'];
+            addToFavButton = document.createElement("button");
+            addToFavButton.innerHTML = "Add/Remove";
+            addToFavButton.id = "addRemove";
+            addToFavButton.addEventListener("click", function () {
+              addRowToFav();
+            });
+            td4.appendChild(addToFavButton);
+
+            tr.appendChild(td0);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+
+            aniTableBody.appendChild(tr);
+
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      };
+
+      request.send();
+    }
+
+    function addRowToFav() {
+      var table;
+      var itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
+      var item = event.target.parentNode.parentNode;
+
+      if (itemID === 'aniTable') {
+        table = document.querySelector('#favTable > tbody');
+      } else {
+        table = document.querySelector('#aniTable > tbody'); 
+      }
+
+      table.appendChild(item);
+    }
+
+  </script>
+</head>
+
+<body onload="loadData()">
+
+  <h1>Anime Season</h1>
+  <ul class="topnav">
+    <li><a href="index.html">Home</a></li>
+    <li><a class="active" href="news.html">Anime Season</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+<h2>Watchlist</h2>
+  <table id="favTable" class="aniTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Synopsis</th>
+        <th>Episodes</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <h2>Season</h2>
+  <table id="aniTable" class="aniTable">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Synopsis</th>
+        <th>Episodes</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <div>'Styles for the navigation bar are taken from https://www.w3schools.com/css/css_navbar_horizontal.asp'</div>
+
+</body>
+
+</html>
