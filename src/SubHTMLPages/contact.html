@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    function validate() {
+      var name = document.registerForm.fname.value;
+      var telNumber = document.registerForm.number.value;
+      var email = document.registerForm.email.value;
+      var password = document.registerForm.password.value;
+
+      var nameErr = true;
+      var telNumberErr = true;
+      var emailErr = true;
+      var passwordErr = true;
+
+      // Validate name
+      if (name == "") {
+        alert("Please enter your name");
+
+        return false;
+      } else {
+        var regex = /^[a-zA-Z\s]+$/;
+        if (regex.test(name) === false) {
+          alert("Please enter a valid name");
+          return false;
+        } else {
+          nameErr = false;
+        }
+      }
+
+      // Validate mobile number
+      if (telNumber == "") {
+        alert("Please enter your mobile number");
+        return false;
+      } else {
+        var regex = /^[1-9]\d{9}$/;
+        if (regex.test(telNumber) === false) {
+          alert("Please enter a valid 10 digit mobile number");
+          return false;
+        } else {
+          telNumberErr = false;
+        }
+      }
+
+      // Validate email address
+      if (email == "") {
+        alert("Please enter your email address");
+        return false;
+      } else {
+        var regex = /^\S+@\S+\.\S+$/;
+        if (regex.test(email) === false) {
+          alert("Please enter a valid email address");
+          return false;
+        } else {
+          emailErr = false;
+        }
+      }
+
+      // Validate password number
+      if (password == "") {
+        alert("Please enter a password");
+        return false;
+      } else {
+        var regex = /^.{10,}/;
+        if (regex.test(password) === false) {
+          alert("Please enter a passwaord with at least 10 characters");
+          return false;
+        } else {
+          passwordErr = false;
+        }
+      }
+
+      var dataPreview = "You've submitted the following details: \n" +
+        "Full Name: " + name + "\n" +
+        "Mobile Number: " + telNumber + "\n" +
+        "Email Address: " + email + "\n" +
+        "Password: " + password + "\n";
+
+      alert(dataPreview);
+      return true;
+
+    }
+  </script>
+</head>
+
+<body>
+
+  <h1>Contact</h1>
+
+  <ul class="topnav">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="news.html">Anime Season</a></li>
+    <li><a class="active" href="contact.html">Contact</a></li>
+  </ul>
+  <br>
+  <br>
+  <br>
+  <br>
+  <form id="submitfrom" name="registerForm" onsubmit="return validate()">
+    <label for="fname">Full name:</label><br>
+    <input type="text" id="fname" name="fname"><br><br>
+    <label for="number">Number:</label><br>
+    <input type="tel" id="number" name="number"><br><br>
+    <label for="email">E-Mail:</label><br>
+    <input type="email" id="email" name="email"><br><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br><br>
+    <input type="submit" value="Register" />
+  </form>
+
+</body>
+
+</html>
